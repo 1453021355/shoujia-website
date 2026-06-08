@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福建首嘉新能源管理有限公司 - 聚力光明·赋能未来</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
+        
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(0, 43, 91, 0.9), rgba(0, 100, 60, 0.8)), 
+                        url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #0047AB, #10B981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 71, 171, 0.15);
+        }
+        
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .bar-animate {
+            animation: growUp 1.5s ease-out forwards;
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+        
+        @keyframes growUp {
+            to { transform: scaleY(1); }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 71, 171, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(0, 71, 171, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 71, 171, 0); }
+        }
+        
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .icon-rotate:hover {
+            animation: rotate 0.6s ease-in-out;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .section-divider {
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 71, 171, 0.75), rgba(16, 185, 129, 0.75));
+        }
+        
+        .divider-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .geometric-bg {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 71, 171, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0047AB',
+                        'secondary': '#10B981',
+                        'dark': '#0F172A',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body class="font-sans text-gray-700 antialiased bg-gray-50">
+
+    <!-- 导航栏 -->
+    <nav id="navbar" class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center space-x-3">
+                    <img src="logo.png" alt="首嘉新能源 Logo" class="h-12 w-auto object-contain">
+                    <div>
+                        <span class="text-xl font-bold text-gray-900 tracking-wide block">首嘉新能源</span>
+                        <span class="text-xs text-gray-500 tracking-widest">FIRST ENERGY</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8 text-base font-medium">
+                    <a href="#home" class="text-primary hover:text-secondary transition">首页</a>
+                    <a href="#about" class="text-gray-600 hover:text-primary transition">公司介绍</a>
+                    <a href="#power-trading" class="text-gray-600 hover:text-primary transition">售电简介</a>
+                    <a href="#service" class="text-gray-600 hover:text-primary transition">售电服务</a>
+                    <a href="#business" class="text-gray-600 hover:text-primary transition">核心业务</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. 封面 Banner -->
+    <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white px-4 relative">
+        <div class="max-w-5xl mx-auto fade-in-section">
+            <div class="inline-block px-6 py-2 border border-white/30 rounded-full text-sm mb-8 backdrop-blur-sm bg-white/10">
+                ENTERPRISE BUSINESS ALBUM
+            </div>
+            <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-wider drop-shadow-lg">聚力光明·赋能未来</h1>
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <div class="h-px w-16 bg-white/60"></div>
+                <span class="text-2xl md:text-3xl font-light">首嘉·能源</span>
+                <div class="h-px w-16 bg-white/60"></div>
+            </div>
+            <div class="text-4xl font-bold text-gray-200">2026</div>
+        </div>
+    </section>
+
+    <!-- 2. 公司介绍 -->
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="fade-in-section">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-1 bg-secondary"></span>
+                        <span class="text-secondary font-bold tracking-wider uppercase">Company Introduction</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">公司介绍</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        福建首嘉新能源管理有限公司是<strong>综合性能源服务商</strong>，主营<strong>售电、综合能源、碳交易、绿证业务</strong>，从事风电、水电项目投资开发与运维。
+                    </p>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        公司紧跟新电改政策，携手<strong>国电、华电、大唐等央企</strong>，保障客户用电供给。未来坚守绿色发展，深耕售电、拓展新能源与碳业务，致力打造<strong>国内领先综合能源服务商</strong>。
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="text-center p-4 bg-blue-50 rounded-xl">
+                            <div class="text-3xl font-bold text-primary mb-1">5+</div>
+                            <div class="text-sm text-gray-600">核心业务</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-xl">
+                            <div class="text-3xl font-bold text-secondary mb-1">5</div>
+                            <div class="text-sm text-gray-600">市场布局</div>
+                        </div>
+                        <div class="text-center p-4 bg-blue-50 rounded-xl">
+                            <div class="text-3xl font-bold text-primary mb-1">央企</div>
+                            <div class="text-sm text-gray-600">合作伙伴</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative fade-in-section">
+                    <div class="absolute -top-4 -left-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-secondary/10 rounded-full blur-3xl"></div>
+                    <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80" alt="新能源科技" class="rounded-2xl shadow-2xl relative z-10 w-full object-cover h-[500px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 分隔图片1：售电简介 -->
+    <div class="section-divider" style="background-image: url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1920&q=80');">
+        <div class="divider-content h-full flex items-center justify-center">
+            <div class="text-center text-white fade-in-section">
+                <div class="text-sm uppercase tracking-widest mb-4 opacity-80">Power Trading</div>
+                <h3 class="text-5xl font-bold mb-6">售电简介</h3>
+                <div class="max-w-2xl mx-auto space-y-4 text-lg">
+                    <p class="flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-map-location-dot text-secondary"></i>
+                        <span>顺应国家新一轮电改政策，深耕能源行业</span>
+                    </p>
+                    <p class="flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-certificate text-secondary"></i>
+                        <span>凭借专业技术和过硬服务软实力</span>
+                    </p>
+                    <p class="flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-award text-secondary"></i>
+                        <span>获得专业机构权威认可</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 售电简介详情 -->
+    <section id="power-trading" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <span class="text-primary font-bold tracking-wider uppercase">Industry Overview</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">行业板块 & 权威认证</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 fade-in-section">
+                <div class="bg-white rounded-2xl p-10 shadow-lg border border-blue-100 hover-lift">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-6 text-white">
+                        <i class="fa-solid fa-map-location-dot text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">行业板块</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        顺应国家新一轮电改政策，深耕能源行业，凭借核心技术，大力拓展综合能源业务。
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-secondary"></i>
+                            <span>率先布局<strong>北京、福建、陕西、湖北、重庆</strong>等市场</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-secondary"></i>
+                            <span>建立多区域可持续发展动能</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-secondary"></i>
+                            <span>凭借核心技术拓展综合能源业务</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl p-10 shadow-lg border border-green-100 hover-lift">
+                    <div class="w-16 h-16 bg-secondary rounded-xl flex items-center justify-center mb-6 text-white">
+                        <i class="fa-solid fa-certificate text-3xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">权威认证</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">
+                        积极响应国家电改政策改革发展，凭借专业技术和过硬服务软实力，获得专业机构权威认可。
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            <span>响应国家电改政策改革发展</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            <span>专业技术和过硬服务软实力</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-700">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            <span>获得专业机构权威认可</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 一站式售电市场服务 -->
+    <section id="service" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in-section">
+                <span class="text-primary font-bold tracking-wider uppercase">Product Overview</span>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2 mb-4">一站式售电市场服务</h2>
+                <div class="w-24 h-1 bg-secondary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- 01 合同管理 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg border border-blue-100 hover-lift group fade-in-section relative">
+                    <div class="text-6xl font-bold text-blue-100 absolute top-4 right-4 group-hover:text-blue-200 transition-colors">01</div>
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-6 text-white icon-rotate">
+                        <i class="fa-solid fa-file-signature text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">合同管理</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">全周期管控售电合约，确保合规与高效履约。</p>
+                </div>
+                
+                <!-- 02 客户管理 -->
+                <div class="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-lg border border-green-100 hover-lift group fade-in-section relative">
+                    <div class="text-6xl font-bold text-green-100 absolute top-4 right-4 group-hover:text-green-200 transition-colors">02</div>
+                    <div class="w-16 h-16 bg-secondary rounded-xl flex items-center justify-center mb-6 text-white icon-rotate">
+                        <i class="fa-solid fa-users-gear text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">客户管理</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">深耕客户全生命周期运维，提供专属能源管家服务。</p>
+                </div>
+                
+                <!-- 03 电量合约 -->
+                <div class="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl shadow-lg border border-blue-100 hover-lift group fade-in-section relative">
+                    <div class="text-6xl font-bold text-blue-100 absolute top-4 right-4 group-hover:text-blue-200 transition-colors">03</div>
+                    <div class="w-16 h-16 bg-sky-500 rounded-xl flex items-center justify-center mb-6 text-white icon-rotate">
+                        <i class="fa-solid fa-chart-line text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">电量合约</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">核定电量，履约合约管控，规避市场风险。</p>
+                </div>
+                
+                <!-- 04 用电管理 -->
+                <div class="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl shadow-lg border border-green-100 hover-lift group fade-in-section relative">
+                    <div class="text-6xl font-bold text-green-100 absolute top-4 right-4 group-hover:text-green-200 transition-colors">04</div>
+                    <div class="w-16 h-16 bg-emerald-500 rounded-xl flex items-center justify-center mb-6 text-white icon-rotate">
+                        <i class="fa-solid fa-laptop-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">用电管理</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">管控用电数据与能耗分析，助力企业降本增效。</p>
+                </div>
+            </div>
+            
+                        <!-- 全省用户分布图 -->
+            <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl p-8 shadow-lg border border-gray-100 fade-in-section">
+                <div id="fujian-map" style="width: 100%; height: 500px; border-radius: 1rem; background: #ffffff;"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        (function() {
+            const userData = [
+                {name: '泉州市', value: 51},
+                {name: '福州市', value: 45},
+                {name: '南平市', value: 12},
+                {name: '漳州市', value: 12},
+                {name: '莆田市', value: 12},
+                {name: '三明市', value: 8},
+                {name: '龙岩市', value: 6},
+                {name: '宁德市', value: 3},
+                {name: '厦门市', value: 2}
+            ];
+
+            if (typeof echarts === 'undefined') {
+                console.error('ECharts library not loaded');
+                const dom = document.getElementById('fujian-map');
+                if (dom) dom.innerHTML = '<div style="text-align:center;padding:50px;color:#666;">地图库加载失败</div>';
+                return;
+            }
+
+            fetch('https://geo.datav.aliyun.com/areas_v3/bound/350000_full.json')
+                .then(response => response.json())
+                .then(geoJson => {
+                    echarts.registerMap('fujian', geoJson);
+
+                    const chartDom = document.getElementById('fujian-map');
+                    if (!chartDom) return;
+
+                    const chart = echarts.init(chartDom);
+
+                    const option = {
+                        backgroundColor: '#ffffff',
+                        title: {
+                            text: '福建省用户分布图',
+                            subtext: '总计 151 家用户',
+                            left: 'center',
+                            textStyle: { 
+                                color: '#0047AB', 
+                                fontSize: 24,
+                                fontWeight: 'bold'
+                            },
+                            subtextStyle: { 
+                                color: '#10B981',
+                                fontSize: 14
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: '{b}<br/>用户数量：{c} 家'
+                        },
+                        visualMap: {
+                            min: 0, 
+                            max: 55,
+                            left: 'left', 
+                            bottom: '10%',
+                            text: ['高', '低'],
+                            calculable: true,
+                            inRange: {
+                                color: ['#e0f3ff', '#87ceeb', '#4682b4', '#1a6fb5', '#00d4ff', '#00ff88']
+                            },
+                            textStyle: { 
+                                color: '#333' 
+                            }
+                        },
+                        geo: {
+                            map: 'fujian',
+                            roam: false,
+                            label: { 
+                                show: true, 
+                                color: '#333',
+                                fontSize: 13,
+                                fontWeight: 'bold'
+                            },
+                            itemStyle: {
+                                areaColor: '#1a6fb5',
+                                borderColor: '#00d4ff',
+                                borderWidth: 2
+                            },
+                            emphasis: {
+                                itemStyle: { 
+                                    areaColor: '#00ff88',
+                                    shadowColor: '#00ff88',
+                                    shadowBlur: 15
+                                },
+                                label: { 
+                                    color: '#333',
+                                    fontSize: 15
+                                }
+                            }
+                        },
+                        series: [
+                            {
+                                name: '用户数量',
+                                type: 'map',
+                                geoIndex: 0,
+                                data: userData,
+                                label: {
+                                    show: true,
+                                    formatter: function(params) {
+                                        return params.name + '\n' + params.value + '家';
+                                    },
+                                    color: '#333',
+                                    fontSize: 12,
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        ]
+                    };
+
+                    chart.setOption(option);
+
+                    window.addEventListener('resize', function() {
+                        chart.resize();
+                    });
+                })
+                .catch(error => {
+                    console.error('地图加载失败:', error);
+                    const dom = document.getElementById('fujian-map');
+                    if (dom) dom.innerHTML = '<div style="text-align:center;padding:50px;color:#666;">地图数据加载失败</div>';
+                });
+        })();
+    </script>
+
+    <!-- 5. 核心业务拓展 - 绿电交易 -->
+    <section class="py-24 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center fade-in-section">
+                <div class="order-2 lg:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-1 bg-secondary"></span>
+                        <span class="text-secondary font-bold tracking-wider uppercase">Core Business 01</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">绿电交易</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        市场化购销绿电，提供全流程交易服务。我们致力于推动清洁能源的市场化交易，帮助企业实现绿色能源消费转型，降低碳排放成本。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-secondary">
+                                <i class="fa-solid fa-leaf text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-2">全流程服务</h4>
+                            <p class="text-sm text-gray-600">从交易咨询到履约交割的一站式服务</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-md">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 text-primary">
+                                <i class="fa-solid fa-handshake text-xl"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 mb-2">市场化购销</h4>
+                            <p class="text-sm text-gray-600">灵活多样的绿电采购方案</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80" alt="绿电交易" class="rounded-2xl shadow-2xl w-full object-cover h-[450px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 核心业务拓展 - 绿证交易服务 -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center fade-in-section">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80" alt="绿证交易" class="rounded-2xl shadow-2xl w-full object-cover h-[450px]">
+                </div>
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-1 bg-primary"></span>
+                        <span class="text-primary font-bold tracking-wider uppercase">Core Business 02</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-6">绿证交易服务</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        代办绿证流转，助力企业绿色能源转型。我们提供专业的绿证认证、交易和注销服务，帮助企业完成可再生能源消纳责任权重，提升企业绿色形象。
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 text-secondary">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">绿证代办</h4>
+                                <p class="text-sm text-gray-600">专业团队代办绿证申请、流转和注销</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 text-secondary">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">绿色转型</h4>
+                                <p class="text-sm text-gray-600">助力企业完成可再生能源消纳责任</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 text-secondary">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">形象提升</h4>
+                                <p class="text-sm text-gray-600">提升企业社会责任和绿色品牌形象</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. 核心业务拓展 - 虚拟电厂 -->
+    <section class="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center fade-in-section">
+                <div class="order-2 lg:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-1 bg-primary"></span>
+                        <span class="text-primary font-bold tracking-wider uppercase">Core Business 03</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-3">虚拟电厂</h2>
+                    <div class="text-2xl text-primary font-semibold mb-6">Virtual Power Plant</div>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        聚合储能、工商业设备、充电桩等分散用电资源，统一协同调控。依托平台统筹出力，参与电网调度与市场化电力交易获取收益。
+                    </p>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl text-center shadow-md">
+                            <i class="fa-solid fa-battery-full text-3xl text-primary mb-2"></i>
+                            <div class="text-sm font-bold text-gray-900">储能系统</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-md">
+                            <i class="fa-solid fa-industry text-3xl text-primary mb-2"></i>
+                            <div class="text-sm font-bold text-gray-900">工商业设备</div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl text-center shadow-md">
+                            <i class="fa-solid fa-charging-station text-3xl text-primary mb-2"></i>
+                            <div class="text-sm font-bold text-gray-900">充电桩</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=800&q=80" alt="虚拟电厂" class="rounded-2xl shadow-2xl w-full object-cover h-[450px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. 核心业务拓展 - 碳管理服务 -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center fade-in-section">
+                <div>
+                    <img src="carbon_management.png" alt="碳管理服务" class="rounded-2xl shadow-2xl w-full object-cover h-[450px]">
+                </div>
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-12 h-1 bg-secondary"></span>
+                        <span class="text-secondary font-bold tracking-wider uppercase">Core Business 04</span>
+                    </div>
+                    <h2 class="text-4xl font-bold text-gray-900 mb-3">碳管理服务</h2>
+                    <div class="text-2xl text-secondary font-semibold mb-6">Carbon Management Services</div>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                        定制减排方案，一站式完成全链条碳管控服务。统筹企业碳排放核算、盘查与数据建档，协助申报碳配额，对接碳市场交易，并履约结算交割。
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                            <i class="fa-solid fa-calculator text-secondary"></i>
+                            <span class="text-gray-700">碳排放核算与盘查</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                            <i class="fa-solid fa-database text-secondary"></i>
+                            <span class="text-gray-700">数据建档与管理</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                            <i class="fa-solid fa-file-contract text-secondary"></i>
+                            <span class="text-gray-700">碳配额申报</span>
+                        </div>
+                        <div class="flex items-center gap-3 bg-gray-50 p-3 rounded-lg">
+                            <i class="fa-solid fa-chart-line text-secondary"></i>
+                            <span class="text-gray-700">碳市场交易与履约</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. 市场布局 -->
+    <section class="py-24 bg-white geometric-bg">
+        <div class="max-w-6xl mx-auto px-4 text-center fade-in-section">
+            <span class="text-primary font-bold tracking-wider uppercase">Market Layout</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-6">顺应国家电改，布局全国市场</h2>
+            <div class="w-24 h-1 bg-secondary mx-auto rounded-full mb-12"></div>
+            
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-10 py-5 rounded-2xl shadow-lg hover-lift cursor-default">
+                    <i class="fa-solid fa-location-dot mr-2"></i>北京
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-10 py-5 rounded-2xl shadow-lg hover-lift cursor-default">
+                    <i class="fa-solid fa-location-dot mr-2"></i>福建
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-10 py-5 rounded-2xl shadow-lg hover-lift cursor-default">
+                    <i class="fa-solid fa-location-dot mr-2"></i>陕西
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-10 py-5 rounded-2xl shadow-lg hover-lift cursor-default">
+                    <i class="fa-solid fa-location-dot mr-2"></i>湖北
+                </div>
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white px-10 py-5 rounded-2xl shadow-lg hover-lift cursor-default">
+                    <i class="fa-solid fa-location-dot mr-2"></i>重庆
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. 页脚 -->
+    <footer id="contact" class="bg-dark text-gray-400 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 fade-in-section">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="logo.png" alt="首嘉新能源 Logo" class="h-10 w-auto bg-white p-1 rounded">
+                        <span class="text-2xl font-bold text-white">首嘉新能源</span>
+                    </div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        FUJIAN FIRST ENERGY MANAGEMENT CO., LTD.<br>
+                        聚力光明 · 赋能未来
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        <p>国家政策推动</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-6">快速导航</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#home" class="hover:text-secondary transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> 首页</a></li>
+                        <li><a href="#about" class="hover:text-secondary transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> 公司介绍</a></li>
+                        <li><a href="#service" class="hover:text-secondary transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> 售电服务</a></li>
+                        <li><a href="#business" class="hover:text-secondary transition flex items-center gap-2"><i class="fa-solid fa-chevron-right text-xs"></i> 核心业务</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white text-lg font-bold mb-6">联系我们</h3>
+                    <ul class="space-y-5">
+                        <li class="flex items-start gap-4">
+                            <i class="fa-solid fa-phone mt-1 text-secondary"></i>
+                            <div>
+                                <div class="text-white font-medium">服务热线</div>
+                                <div>Tel: 0591-8707-6575-6579</div>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fa-solid fa-location-dot mt-1 text-secondary"></i>
+                            <div>
+                                <div class="text-white font-medium">公司地址</div>
+                                <div>福建省福州市鼓楼区乌山西路<br>新能源科创中心 5楼</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2026 福建首嘉新能源管理有限公司 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript 动效控制 -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
